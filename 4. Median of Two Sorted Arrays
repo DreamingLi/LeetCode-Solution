@@ -1,0 +1,16 @@
+# 4. Median of Two Sorted Arrays
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        nums = nums1 + nums2
+        nums.sort()
+        nums_length = len(nums)
+        if nums_length & 1 == 1:
+            return nums[int(nums_length/2)]
+        else:
+            return (nums[int((nums_length-1)/2)]+nums[int(nums_length/2)]) / 2
+           
+# Runtime: 84 ms, faster than 96.42% of Python3 online submissions for Median of Two Sorted Arrays.
+# Memory Usage: 14.1 MB, less than 6.72% of Python3 online submissions for Median of Two Sorted Arrays.
+# solution: 1. python provides the sort function, just use the sort function to sort the combination of two lists.
+#           2. if the length of the sorted list is odd, which means that we dont need to add the middle two elements togethe. If the length of sorted list is even, we need to
+#              add the middle two elements together and divide two.
