@@ -1,0 +1,35 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        left_queue = list()
+        right_queue = list()
+        left_queue.append(p)
+        right_queue.append(q)
+        while len(left_queue) == len(right_queue):
+            if not left_queue and not right_queue:
+                return True
+            l_node = left_queue.pop(0)
+            r_node = right_queue.pop(0)
+            if l_node == None and r_node == None:
+                continue
+            elif l_node == None and r_node != None:
+                return False
+            elif l_node != None and r_node == None:
+                return False
+            if l_node.val == r_node.val:
+                if l_node != None:
+                    left_queue.append(l_node.left) 
+                    left_queue.append(l_node.right) 
+                if r_node != None:
+                    right_queue.append(r_node.left) 
+                    right_queue.append(r_node.right) 
+            else:
+                return False
+# Runtime: 32 ms, faster than 57.39% of Python3 online submissions for Same Tree.
+# Memory Usage: 14.3 MB, less than 99.99% of Python3 online submissions for Same Tree.
+            
