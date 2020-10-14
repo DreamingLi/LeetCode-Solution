@@ -8,9 +8,12 @@ class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         left_queue = list()
         right_queue = list()
+        # 1 put the nodes into two different queues.
         left_queue.append(p)
         right_queue.append(q)
+        # 2 if the two length of two queues is the same,which means they are the same when running
         while len(left_queue) == len(right_queue):
+            # 3. if both queues become empty, then, they are the same
             if not left_queue and not right_queue:
                 return True
             l_node = left_queue.pop(0)
@@ -30,6 +33,7 @@ class Solution:
                     right_queue.append(r_node.right) 
             else:
                 return False
-# Runtime: 32 ms, faster than 57.39% of Python3 online submissions for Same Tree.
+# Runtime: 24 ms, faster than 94.20% of Python3 online submissions for Same Tree.
 # Memory Usage: 14.3 MB, less than 99.99% of Python3 online submissions for Same Tree.
-            
+
+# solution: check both values of the both tree nodes together by BFS             
