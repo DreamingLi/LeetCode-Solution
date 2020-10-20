@@ -1,0 +1,16 @@
+104. Maximum Depth of Binary Tree
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:    
+        depth = 1 
+        answer = self.findDepth(root, depth)
+        return answer     
+
+    def _findMaxDepth(self, root, depth):
+
+        if root is None: 
+            return depth - 1      
+        leftDepth = self.findDepth(root.left, depth + 1)
+        rightDepth = self.findDepth(root.right, depth + 1)
+        
+        return max(leftDepth, rightDepth)
