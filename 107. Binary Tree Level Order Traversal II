@@ -1,0 +1,47 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        else:
+            ret = [] 
+            ret_tuple = self.findSonNode([root,])
+            ret.append(ret_tuple[1])
+            while ret_tuple[0]:
+                ret_tuple = self.findSonNode(ret_tuple[0])
+                ret.insert(0,ret_tuple[1])  # final it will append an empty list
+            ret.pop(0)
+            ret.append([root.val]) # add the root value at the end fo the list
+        return ret
+            
+    def findSonNode(self, root: list):
+        ret_value = list()
+        ret_node = list()
+        for i in root: 
+            if i.left != None:
+                ret_value.append(i.left.val)
+                ret_node.append(i.left)
+            if i.right != None:
+                ret_value.append(i.right.val)
+                ret_node.append(i.right)
+        return (ret_node,ret_value)
+        
+# Runtime: 20 ms, faster than 99.93% of Python3 online submissions for Binary Tree Level Order Traversal II.
+# Memory Usage: 14.3 MB, less than 18.26% of Python3 online submissions for Binary Tree Level Order Traversal II.
+# Solution: 
+
+
+# 解题思路：
+# 只要涉及一层一层取值或者一层一层做操作的要求，基本都是通过BFS来解决。 那么我最先想法也是从BFS来做文章，BFS的思路是通过queue的数据结构特性来遍历整个树的所有node。但是如果直接搬用BFS的
+# 方法的话，没办法判断从queue里面dequeue出来的是属于哪一层的。因此我想的是，只要把上层节点的所有子节点按照顺序都放到一个queue里面，每次操作的单位就是一整个queue的话，就可以很好辨别元素的层数
+# 第一层的所有节点都在一个queue里面，那么我们扔进一个方法里面，把他的子节点和他所有子节点的值返回来。 之后再把他的所有子节点扔进一个方法，返回他子节点的字节点，和子节点的子节点的值。反复循环
+# 就可以完成按层遍历所有节点了
+# 图示
+#                                              [root]               <- 都在一个queue里面,把这个queue扔到一个方法里面，返回node1，node2
+#                                         [node1] [node2]           <- node1和node2 都在一个queue里面， 把这个queue扔到一个方法里面,返回node1,2,3,4.
+#                                 [node1] [node2] [node3] [node4]   <- 按照这个思路反复循环，也就是按层操作
