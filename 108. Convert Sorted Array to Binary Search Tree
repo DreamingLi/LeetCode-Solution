@@ -1,0 +1,19 @@
+class Solution:
+    	def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+            if len(nums) == 0:
+                return None
+            middle = int(len(nums) / 2)
+            root = TreeNode(nums[middle])
+            root.left = self.sortedArrayToBST(nums[:middle])
+            root.right = self.sortedArrayToBST(nums[middle+1:])
+            return root
+            
+# Runtime: 60 ms, faster than 99.29% of Python3 online submissions for Convert Sorted Array to Binary Search Tree.
+# Memory Usage: 16.3 MB, less than 100.00% of Python3 online submissions for Convert Sorted Array to Binary Search Tree.
+
+#solution: 很像二进制查找，能做到O(logn)，也就是说找到中间点之后，把左半边按照同样的方法继续找中间点，右半边同理，也是找中间点。
+# 通过这样的方式，就能倒转树结构
+
+# Much like binary search, it can do O(logn). In fact, after finding the middle point, the middle point on the left half is searched in the same way. The right half is performed 
+# in the same way
+# In this way, the tree structure can be reversed
